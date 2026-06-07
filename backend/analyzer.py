@@ -1,6 +1,7 @@
 import os
 import google.generativeai as genai
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 
@@ -10,16 +11,27 @@ model = genai.GenerativeModel("gemini-2.5-flash")
 
 def analyze_job(content, domain_age):
     prompt = f"""
-    Analyze this job posting.
+You are a job scam detector.
 
-    Domain age: {domain_age} days
+Domain Age: {domain_age} days
 
-    Job Content:
-    {content[:2000]}
+Job Content:
+{content[:2000]}
 
-    Give a scam risk score from 0 to 100 and explain why.
-    """
+Return ONLY valid JSON in this format:
+
+{{
+  "scam_score": 0,
+  "verdict": "",
+  "reason": ""
+}}
+"""
 
     response = model.generate_content(prompt)
 
-    return response.text
+    text = response.text.strip()
+
+    if text.startswith("```json"):
+        text = text.replace("```json", "").replace("```", "").strip()
+
+    return json.loads(text)

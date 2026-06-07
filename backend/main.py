@@ -21,6 +21,4 @@ def analyze(data: JobRequest):
 
     result = analyze_job(content, age)
 
-    return {
-        "analysis": result
-    }
+    return result
