@@ -16,8 +16,12 @@ def home():
 
 @app.post("/analyze")
 def analyze(data: JobRequest):
-    content = fetch_job_content(data.url)
-    age = get_domain_age(data.url)
+    if data.url:
+        content = fetch_job_content(data.url)
+        age = get_domain_age(data.url)
+    else:
+        content = data.text
+        age = None
 
     result = analyze_job(content, age)
 

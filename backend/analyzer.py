@@ -23,6 +23,8 @@ Return ONLY valid JSON in this format:
 {{
   "scam_score": 0,
   "verdict": "",
+  "red_flags": [],
+  "green_flags": [],
   "reason": ""
 }}
 """
