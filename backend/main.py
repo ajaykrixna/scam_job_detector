@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from scraper import fetch_job_content
+from scraper import fetch_job_content, get_domain_age
+from analyzer import analyze_job
+
 
 app = FastAPI()
 
@@ -15,7 +17,10 @@ def home():
 @app.post("/analyze")
 def analyze(data: JobRequest):
     content = fetch_job_content(data.url)
+    age = get_domain_age(data.url)
+
+    result = analyze_job(content, age)
 
     return {
-        "content": content
+        "analysis": result
     }
