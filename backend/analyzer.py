@@ -25,7 +25,8 @@ Return ONLY valid JSON in this format:
   "verdict": "",
   "red_flags": [],
   "green_flags": [],
-  "reason": ""
+  "recommendation": "",
+  "reasoning": ""
 }}
 """
 
