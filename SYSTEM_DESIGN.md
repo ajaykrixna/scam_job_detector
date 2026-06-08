@@ -91,9 +91,9 @@ I also forced Gemini to return a structured JSON response containing a scam scor
 
 The final prompt combines three types of information:
 
-Original job content
-Extracted features
-Rule-based fraud indicators
+- Original job content
+- Extracted features
+- Rule-based fraud indicators
 
 This helped the model make more consistent decisions while still allowing it to reason about context.
 
@@ -146,10 +146,10 @@ My first version relied entirely on Gemini for scam detection. While it worked r
 
 I introduced a lightweight rule engine to detect patterns such as:
 
-Registration fees
-Generic Gmail recruiter emails
-Unrealistic salary claims
-No-experience-required offers
+- Registration fees
+- Generic Gmail recruiter emails
+- Unrealistic salary claims
+- No-experience-required offers
 
 The rule engine provides deterministic signals, while Gemini handles contextual reasoning. This hybrid approach produced more reliable results than either method alone.
 
@@ -157,8 +157,7 @@ The rule engine provides deterministic signals, while Gemini handles contextual 
 
 Gemini occasionally wraps responses inside markdown code blocks.
 
-Decision:
-Remove markdown fences before parsing and use exception handling to prevent application crashes.
+To make the system more reliable, markdown fences are removed before parsing and exception handling is used to prevent application crashes.
 
 ### Domain Age Signal
 
@@ -191,6 +190,6 @@ Because of this, domain age is treated only as supporting evidence rather than a
 
 The Scam Job Detector was built to address a problem that many students and fresh graduates face when searching for jobs online. Instead of relying entirely on AI or entirely on predefined rules, the system combines feature extraction, rule-based detection, and Gemini-powered reasoning.
 
-This approach provides both explainability and contextual understanding. The project successfully identifies common job scam patterns while remaining simple enough to run in real time through a web interface.
+This approach provides both explainability and contextual understanding. The project successfully identifies common job scam patterns while remaining simple enough to run in real time through a web interface.During testing, the system was able to correctly identify common advance-fee scams while also recognizing legitimate internship postings from established companies.
 
 While there is room for improvement, such as company verification and historical scam databases, the current prototype demonstrates how LLMs can be combined with traditional software techniques to solve a practical real-world problem.
