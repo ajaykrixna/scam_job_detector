@@ -3,6 +3,8 @@ from pydantic import BaseModel
 from scraper import fetch_job_content, get_domain_age
 from analyzer import analyze_job
 from fastapi.middleware.cors import CORSMiddleware
+from rules import rule_based_analysis
+from extractor import extract_features
 
 
 app = FastAPI()
@@ -32,7 +34,17 @@ def analyze(data: JobRequest):
         content = data.text
         age = None
 
-    result = analyze_job(content, age)
+    rule_data = rule_based_analysis(content, age)
+
+    features = extract_features(content)
+    print(features)
+
+    result = analyze_job(
+    content,
+    age,
+    rule_data,
+    features
+    )
     result["domain_age"] = age
 
     return result

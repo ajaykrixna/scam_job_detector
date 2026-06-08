@@ -9,11 +9,37 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 model = genai.GenerativeModel("gemini-2.5-flash")
 
-def analyze_job(content, domain_age):
+def analyze_job(content, domain_age, rule_data, features):
     prompt = f"""
 You are a job scam detector.
 
-Domain Age: {domain_age if domain_age is not None else "Not Available"}
+Rule Score: {rule_data['rule_score']}
+
+Matched Red Flags:
+{rule_data['matched_flags']}
+
+Domain Age:
+{domain_age if domain_age is not None else "Not Available"}
+
+Extracted Features:
+
+Emails:
+{features["emails"]}
+
+Phone Numbers:
+{features["phones"]}
+
+Salary Claims:
+{features["salaries"]}
+
+Has Registration Fee:
+{features["has_fee"]}
+
+Uses Free Email:
+{features["uses_free_email"]}
+
+Salary Risk:
+{features["salary_risk"]}
 
 Job Content:
 {content[:2000]}
