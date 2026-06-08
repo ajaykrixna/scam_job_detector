@@ -5,6 +5,7 @@ from analyzer import analyze_job
 from fastapi.middleware.cors import CORSMiddleware
 from rules import rule_based_analysis
 from extractor import extract_features
+from validator import validate_company_domain
 
 
 app = FastAPI()
@@ -37,13 +38,20 @@ def analyze(data: JobRequest):
     rule_data = rule_based_analysis(content, age)
 
     features = extract_features(content)
+    validation = validate_company_domain(
+    content,
+    data.url
+    )
+
+    print(validation)
     print(features)
 
     result = analyze_job(
     content,
     age,
     rule_data,
-    features
+    features,
+    validation
     )
     result["domain_age"] = age
 

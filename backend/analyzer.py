@@ -9,9 +9,21 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 model = genai.GenerativeModel("gemini-2.5-flash")
 
-def analyze_job(content, domain_age, rule_data, features):
+def analyze_job(
+    content,
+    domain_age,
+    rule_data,
+    features,
+    validation
+):
     prompt = f"""
 You are a job scam detector.
+
+Company validation is optional.
+
+If no URL is provided and company validation cannot be performed,
+ do not treat that as a red flag and do not increase the scam score.
+ Only consider company validation suspicious when Domain Match is False.
 
 Rule Score: {rule_data['rule_score']}
 
@@ -40,6 +52,21 @@ Uses Free Email:
 
 Salary Risk:
 {features["salary_risk"]}
+
+Company Validation:
+
+Detected Company:
+{validation["company"]}
+
+Domain Match:
+{validation["domain_match"]}
+
+Expected Domain:
+{validation.get("expected_domain")}
+
+Actual Domain:
+{validation.get("actual_domain")}
+
 
 Job Content:
 {content[:2000]}
