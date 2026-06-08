@@ -13,7 +13,7 @@ def analyze_job(content, domain_age):
     prompt = f"""
 You are a job scam detector.
 
-Domain Age: {domain_age} days
+Domain Age: {domain_age if domain_age is not None else "Not Available"}
 
 Job Content:
 {content[:2000]}
@@ -30,11 +30,22 @@ Return ONLY valid JSON in this format:
 }}
 """
 
-    response = model.generate_content(prompt)
+    try:
+        response = model.generate_content(prompt)
 
-    text = response.text.strip()
+        text = response.text.strip()
 
-    if text.startswith("```json"):
-        text = text.replace("```json", "").replace("```", "").strip()
+        if text.startswith("```json"):
+            text = text.replace("```json", "").replace("```", "").strip()
 
-    return json.loads(text)
+        return json.loads(text)
+
+    except Exception:
+        return {
+            "scam_score": 0,
+            "verdict": "Service Error",
+            "red_flags": [],
+            "green_flags": [],
+            "recommendation": "AI service temporarily unavailable. Please try again later.",
+            "reasoning": "The AI analysis service is currently unavailable due to API limits. Please try again later."
+        }
