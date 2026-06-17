@@ -233,4 +233,4 @@ GitHub: [@ajaykrixna](https://github.com/ajaykrixna)
 
 ## Disclaimer
 
-This tool provides automated risk assessment and should not be treated as a definitive judgment. Users should independently verify job opportunities before sharing personal information or making any payments.
+This tool provides automated risk assessment and should not be treated as a definitive judgment. Users should independently verify job opportunities before sharing personal information or making any payments. 
