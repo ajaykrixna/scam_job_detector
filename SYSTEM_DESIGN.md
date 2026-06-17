@@ -192,4 +192,4 @@ The Scam Job Detector was built to address a problem that many students and fres
 
 This approach provides both explainability and contextual understanding. The project successfully identifies common job scam patterns while remaining simple enough to run in real time through a web interface.During testing, the system was able to correctly identify common advance-fee scams while also recognizing legitimate internship postings from established companies.
 
-While there is room for improvement, such as company verification and historical scam databases, the current prototype demonstrates how LLMs can be combined with traditional software techniques to solve a practical real-world problem.
+While there is room for improvement, such as company verification and historical scam databases, the current prototype demonstrates how LLMs can be combined with traditional software techniques to solve a practical real-world problem. 
