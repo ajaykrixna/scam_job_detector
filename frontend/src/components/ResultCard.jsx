@@ -234,6 +234,106 @@ export default function ResultCard({
           )}
         </div>
       </div>
+            {/* Source Verification */}
+      {result.source_verification && (
+        <div
+          style={{
+            marginTop: 20,
+            padding: 16,
+            border: "1px solid #e5e7eb",
+            borderRadius: 12,
+            background: "#fafafa",
+          }}
+        >
+          <h3
+            style={{
+              marginTop: 0,
+              marginBottom: 12,
+              fontSize: 14,
+            }}
+          >
+            🔍 Source Verification
+          </h3>
+
+          <div style={{ fontSize: 14 }}>
+
+          {result.source_verification.source_domain && (
+            <div
+              style={{
+                background: "#f0fdf4",
+                color: "#166534",
+                padding: 10,
+                borderRadius: 8,
+                marginBottom: 10,
+              }}
+            >
+              ✓ Source domain available
+            </div>
+          )}
+
+          <div
+            style={{
+              background: "#f9fafb",
+              padding: 12,
+              borderRadius: 8,
+              marginBottom: 10,
+              wordBreak: "break-word",
+            }}
+          >
+            {result.source_verification.source_domain || "Source URL not available"}
+          </div>
+
+          {result.source_verification.email_domain ? (
+          <div
+            style={{
+              background:
+                result.source_verification.email_type === "Corporate"
+                  ? "#f0fdf4"
+                  : "#fef2f2",
+              border:
+                result.source_verification.email_type === "Corporate"
+                  ? "1px solid #bbf7d0"
+                  : "1px solid #fecaca",
+              padding: 12,
+              borderRadius: 8,
+            }}
+          >
+            <div
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                marginBottom: 6,
+                color:
+                  result.source_verification.email_type === "Corporate"
+                    ? "#166534"
+                    : "#991b1b",
+              }}
+            >
+              {result.source_verification.email_type === "Corporate"
+                ? "✓ Corporate Email Detected"
+                : "⚠ Free Email Provider Detected"}
+            </div>
+
+            <div>
+              {result.source_verification.email_domain}
+            </div>
+          </div>
+        ) : (
+          <div
+            style={{
+              background: "#f9fafb",
+              padding: 12,
+              borderRadius: 8,
+              color: "#6b7280",
+            }}
+          >
+            No recruiter email found in posting
+          </div>
+        )}
+
+        </div>
+        </div>
+      )}
     </div>
   );
 }

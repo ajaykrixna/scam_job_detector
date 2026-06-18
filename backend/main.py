@@ -5,6 +5,7 @@ from analyzer import analyze_job
 from fastapi.middleware.cors import CORSMiddleware
 from rules import rule_based_analysis
 from extractor import extract_features
+from source_verifier import extract_source_info
 
 
 app = FastAPI()
@@ -39,12 +40,31 @@ def analyze(data: JobRequest):
     features = extract_features(content)
     print(features)
 
+    source_info = extract_source_info(
+    data.url,
+    features
+    )
+    print(source_info)
+
     result = analyze_job(
     content,
     age,
     rule_data,
     features
     )
+
+    score = result["scam_score"]
+
+    if score >= 70:
+        result["verdict"] = "Likely Scam"
+    elif score >= 40:
+        result["verdict"] = "Suspicious"
+    else:
+        result["verdict"] = "Likely Legitimate"
+
     result["domain_age"] = age
+
+
+    result["source_verification"] = source_info
 
     return result

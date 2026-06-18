@@ -20,6 +20,7 @@ export default function App() {
     try {
       const payload = mode === "url" ? { url, text: "" } : { url: "", text };
       const res = await axios.post("http://localhost:8000/analyze", payload);
+      console.log(res.data);
       setResult(res.data);
     } catch (e) {
       setError("Analysis failed. Try pasting the job description manually.");

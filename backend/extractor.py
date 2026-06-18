@@ -49,6 +49,28 @@ def extract_features(content):
     )
 
     features["emails"] = emails
+
+    free_providers = [
+        "gmail.com",
+        "yahoo.com",
+        "outlook.com",
+        "hotmail.com"
+    ]
+
+    email_domain = None
+    email_type = "Unknown"
+
+    if emails:
+        email_domain = emails[0].split("@")[-1].lower()
+
+        if email_domain in free_providers:
+            email_type = "Free Provider"
+        else:
+            email_type = "Corporate"
+
+    features["email_domain"] = email_domain
+    features["email_type"] = email_type
+
     features["phones"] = phones
     features["salaries"] = salaries
 
