@@ -44,21 +44,6 @@ def analyze(data: JobRequest):
     features
     )
 
-    evidence_summary = []
-
-    if features.get("has_fee"):
-        evidence_summary.append("Registration fee detected")
-
-    if features.get("uses_free_email"):
-        evidence_summary.append("Free email provider detected")
-
-    if features.get("email_type") == "Corporate":
-        evidence_summary.append("Corporate email detected")
-    if features.get("salary_risk") == "High":
-        evidence_summary.append("High salary risk detected")
-
-    print(evidence_summary)
-
     result = analyze_job(
     content,
     age,
@@ -77,9 +62,7 @@ def analyze(data: JobRequest):
 
     result["domain_age"] = age
 
-
     result["source_verification"] = source_info
 
-    result["evidence_summary"] = evidence_summary
 
     return result
