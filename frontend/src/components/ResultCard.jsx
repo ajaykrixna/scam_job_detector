@@ -234,6 +234,47 @@ export default function ResultCard({
           )}
         </div>
       </div>
+
+          {/* Evidence Summary */}
+        {result.evidence_summary?.length > 0 && (
+          <div
+            style={{
+              marginTop: 20,
+              marginBottom: 20,
+              padding: 16,
+              border: "1px solid #e5e7eb",
+              borderRadius: 12,
+              background: "#fafafa",
+            }}
+          >
+            <h3
+              style={{
+                marginTop: 0,
+                marginBottom: 12,
+                fontSize: 14,
+              }}
+            >
+              📋 Evidence Summary
+            </h3>
+
+            {result.evidence_summary.map((item, index) => (
+              <div
+                key={index}
+                style={{
+                  background: "#f0fdf4",
+                  color: "#166534",
+                  padding: 10,
+                  borderRadius: 8,
+                  marginBottom: 8,
+                  fontSize: 13,
+                }}
+              >
+                ✓ {item}
+              </div>
+            ))}
+          </div>
+        )}
+
             {/* Source Verification */}
       {result.source_verification && (
         <div

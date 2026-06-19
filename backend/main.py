@@ -38,13 +38,26 @@ def analyze(data: JobRequest):
     rule_data = rule_based_analysis(content, age)
 
     features = extract_features(content)
-    print(features)
 
     source_info = extract_source_info(
     data.url,
     features
     )
-    print(source_info)
+
+    evidence_summary = []
+
+    if features.get("has_fee"):
+        evidence_summary.append("Registration fee detected")
+
+    if features.get("uses_free_email"):
+        evidence_summary.append("Free email provider detected")
+
+    if features.get("email_type") == "Corporate":
+        evidence_summary.append("Corporate email detected")
+    if features.get("salary_risk") == "High":
+        evidence_summary.append("High salary risk detected")
+
+    print(evidence_summary)
 
     result = analyze_job(
     content,
@@ -66,5 +79,7 @@ def analyze(data: JobRequest):
 
 
     result["source_verification"] = source_info
+
+    result["evidence_summary"] = evidence_summary
 
     return result
