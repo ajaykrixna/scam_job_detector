@@ -2,6 +2,7 @@ import os
 import google.generativeai as genai
 from dotenv import load_dotenv
 import json
+from scoring import generate_score_breakdown
 
 load_dotenv()
 
@@ -10,6 +11,9 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-2.5-flash")
 
 def analyze_job(content, domain_age, rule_data, features):
+
+    score_breakdown = generate_score_breakdown(features)
+
     prompt = f"""
 You are a job scam detector.
 
@@ -64,7 +68,11 @@ Return ONLY valid JSON in this format:
         if text.startswith("```json"):
             text = text.replace("```json", "").replace("```", "").strip()
 
-        return json.loads(text)
+        result = json.loads(text)
+
+        result["score_breakdown"] = score_breakdown
+
+        return result
 
     except Exception:
         return {
@@ -73,5 +81,6 @@ Return ONLY valid JSON in this format:
             "red_flags": [],
             "green_flags": [],
             "recommendation": "AI service temporarily unavailable. Please try again later.",
-            "reasoning": "The AI analysis service is currently unavailable due to API limits. Please try again later."
+            "reasoning": "The AI analysis service is currently unavailable due to API limits. Please try again later.",
+            "score_breakdown": score_breakdown
         }
