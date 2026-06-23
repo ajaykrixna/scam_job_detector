@@ -75,10 +75,16 @@ Return ONLY valid JSON in this format:
         return result
 
     except Exception:
+        import traceback
+
+        print("\n===== GEMINI ERROR =====")
+        traceback.print_exc()
+        print("========================\n")
+
         return {
-            "scam_score": 0,
-            "verdict": "Service Error",
-            "red_flags": [],
+            "scam_score": rule_data["rule_score"],
+            "verdict": "Rule-Based Analysis Only",
+            "red_flags": rule_data["matched_flags"],
             "green_flags": [],
             "recommendation": "AI service temporarily unavailable. Please try again later.",
             "reasoning": "The AI analysis service is currently unavailable due to API limits. Please try again later.",

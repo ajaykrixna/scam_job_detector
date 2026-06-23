@@ -234,6 +234,50 @@ export default function ResultCard({
           )}
         </div>
       </div>
+
+        {result.score_breakdown &&
+        Object.keys(result.score_breakdown).length > 0 && (
+          <div
+            style={{
+              marginTop: 20,
+              padding: 16,
+              border: "1px solid #e5e7eb",
+              borderRadius: 12,
+              background: "#fafafa",
+            }}
+          >
+            <h3
+              style={{
+                marginTop: 0,
+                marginBottom: 12,
+                fontSize: 14,
+              }}
+            >
+              📊 Detected Risk Factors
+            </h3>
+
+            {Object.entries(result.score_breakdown).map(
+              ([factor, points]) => (
+                <div
+                  key={factor}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    padding: "8px 0",
+                    borderBottom: "1px solid #f3f4f6",
+                    fontSize: 14,
+                  }}
+                >
+                  <span>{factor}</span>
+                  <strong style={{ color: "#dc2626" }}>
+                    +{points}
+                  </strong>
+                </div>
+              )
+            )}
+          </div>
+        )} 
+
             {/* Source Verification */}
       {result.source_verification && (
         <div
