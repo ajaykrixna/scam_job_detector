@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from rules import rule_based_analysis
 from extractor import extract_features
 from source_verifier import extract_source_info
+from company_checker import extract_company_name, check_company_domain
 
 
 app = FastAPI()
@@ -44,6 +45,15 @@ def analyze(data: JobRequest):
     features
     )
 
+    company = extract_company_name(content)
+
+    company_check = check_company_domain(
+        company,
+        source_info.get("source_domain")
+    )
+
+
+
     result = analyze_job(
     content,
     age,
@@ -63,6 +73,7 @@ def analyze(data: JobRequest):
     result["domain_age"] = age
 
     result["source_verification"] = source_info
-
+    
+    result["company_check"] = company_check
 
     return result
