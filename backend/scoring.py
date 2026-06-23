@@ -7,7 +7,7 @@ def generate_score_breakdown(features):
     if features.get("email_type") == "Free Provider":
         breakdown["Free Email Provider"] = 20
 
-    if features.get("salary_risk") == "High Risk":
+    if features.get("salary_risk") != "Normal":
         breakdown["High Salary Claim"] = 15
 
     return breakdown

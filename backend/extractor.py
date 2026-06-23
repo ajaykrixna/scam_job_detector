@@ -9,7 +9,17 @@ def detect_salary_risk(content):
         "80000",
         "80,000",
         "100000",
-        "1 lakh"
+        "1 lakh",
+
+        
+        "per day",
+        "per week",
+        "daily income",
+        "guaranteed income",
+        "guaranteed earnings",
+        "unlimited income",
+        "unlimited earning",
+
     ]
 
     no_experience_terms = [
@@ -22,8 +32,9 @@ def detect_salary_risk(content):
     has_high_salary = any(term in content_lower for term in high_salary_terms)
     has_no_experience = any(term in content_lower for term in no_experience_terms)
 
-    if has_high_salary and has_no_experience:
+    if has_high_salary :
         return "High"
+    return "Normal"
 
     return "Normal"
 
