@@ -19,7 +19,7 @@ export default function App() {
     setResult(null);
     try {
       const payload = mode === "url" ? { url, text: "" } : { url: "", text };
-      const res = await axios.post("http://localhost:8000/analyze", payload);
+      const res = await axios.post("https://scam-job-detector-1nln.onrender.com", payload);
       console.log(res.data);
       setResult(res.data);
     } catch (e) {
