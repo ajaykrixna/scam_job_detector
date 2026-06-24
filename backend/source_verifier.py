@@ -8,7 +8,7 @@ def extract_source_info(url, features):
         parsed = urlparse(url)
 
         if parsed.netloc:
-            source_domain = parsed.netloc.lower()
+            source_domain = parsed.netloc.lower().replace("www.", "")
 
     email_domain = features.get("email_domain")
     email_type = features.get("email_type")

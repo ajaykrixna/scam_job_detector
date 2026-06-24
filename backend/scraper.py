@@ -25,7 +25,8 @@ def get_domain_age(url):
         return None
 
 def fetch_job_content(url):
-    response = requests.get(url)
+    response = requests.get(url, timeout=10)
+    response.raise_for_status()
 
     soup = BeautifulSoup(response.text, "html.parser")
 
