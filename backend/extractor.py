@@ -30,13 +30,11 @@ def detect_salary_risk(content):
     ]
 
     has_high_salary = any(term in content_lower for term in high_salary_terms)
-    has_no_experience = any(term in content_lower for term in no_experience_terms)
 
     if has_high_salary :
         return "High"
     return "Normal"
 
-    return "Normal"
 
 def extract_features(content):
     features = {}
