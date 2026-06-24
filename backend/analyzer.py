@@ -74,7 +74,7 @@ Return ONLY valid JSON in this format:
 
         return result
 
-    except Exception:
+    except Exception as e:
         import traceback
 
         print("\n===== GEMINI ERROR =====")
