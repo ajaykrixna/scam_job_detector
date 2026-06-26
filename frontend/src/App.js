@@ -19,12 +19,23 @@ export default function App() {
     setResult(null);
     try {
       const payload = mode === "url" ? { url, text: "" } : { url: "", text };
-      const res = await axios.post("https://scam-job-detector-1nln.onrender.com/analyze", payload);
+
+      console.log("Sending request...");
+      console.log(payload);
+
+      const res = await axios.post(
+        "https://scam-job-detector-1nln.onrender.com/analyze",
+        payload
+      );
+
       console.log(res.data);
       setResult(res.data);
     } catch (e) {
-      setError("Analysis failed. Try pasting the job description manually.");
-    }
+        console.log(e);
+        console.log(e.response);
+        console.log(e.response?.data);
+        setError("Analysis failed.");
+}
     setLoading(false);
   };
 
