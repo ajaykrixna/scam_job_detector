@@ -7,6 +7,7 @@ from rules import rule_based_analysis
 from extractor import extract_features
 from source_verifier import extract_source_info
 
+app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
