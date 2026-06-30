@@ -23,6 +23,19 @@ Your goal is to determine whether a job posting is:
 - Likely Scam
 Evaluate the entire job posting using all available evidence.
 
+Important rules:
+
+1. Do NOT classify a job as a scam unless there is concrete evidence such as:
+- Registration or application fees
+- Advance payment requests
+- Identity theft attempts
+- Requests for banking or financial information
+- Fake recruiter impersonation
+- Fake company information
+- Impossible salary promises
+- Guaranteed income claims
+- Pressure tactics to send money
+
 Rule Score: {rule_data['rule_score']}
 
 Matched Red Flags:
