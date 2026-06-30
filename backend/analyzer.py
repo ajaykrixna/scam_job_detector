@@ -51,7 +51,15 @@ Important rules:
 - Google Forms application
 - Zoom interviews
 
+4. If the application uses Google Forms or another third-party form, mention it as a caution rather than automatically considering it fraudulent.
 
+5. Distinguish between:
+- Scam
+- Misleading opportunity
+- Low-quality job
+- Legitimate opportunity
+
+6. Base your final scam score on the strongest evidence, not the number of minor observations.
 
 Rule Score: {rule_data['rule_score']}
 
