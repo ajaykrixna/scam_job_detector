@@ -36,6 +36,23 @@ Important rules:
 - Guaranteed income claims
 - Pressure tactics to send money
 
+2. Direct sales, field marketing, MLM-style companies, management trainee programs, or aggressive recruitment are NOT automatically scams.
+
+3. Do NOT treat the following alone as evidence of a scam:
+- Young domain age
+- Missing recruiter email
+- Unknown company
+- Generic company name
+- Generic job description
+- Remote work
+- Multiple openings
+- Performance-based pay
+- Unpaid internship
+- Google Forms application
+- Zoom interviews
+
+
+
 Rule Score: {rule_data['rule_score']}
 
 Matched Red Flags:
