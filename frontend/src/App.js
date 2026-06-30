@@ -108,7 +108,16 @@ export default function App() {
           marginBottom: 22
         }}>
           {["url", "text"].map((m) => (
-            <button key={m} onClick={() => setMode(m)} style={{
+            <button key={m} onClick={() => {
+                  setMode(m);
+
+                  if (m === "url") {
+                    setText("");
+                  } else {
+                    setUrl("");
+                  }
+                }}
+                style={{
               flex: 1, padding: "8px 0", borderRadius: 8,
               border: "0.5px solid",
               borderColor: mode === m ? "#93c5fd" : "#e5e7eb",
