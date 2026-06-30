@@ -15,7 +15,13 @@ def analyze_job(content, domain_age, rule_data, features):
     score_breakdown = generate_score_breakdown(features)
 
     prompt = f"""
-You are a job scam detector.
+You are an expert AI job scam detection system.
+Your goal is to determine whether a job posting is:
+- Legitimate
+- Legitimate but Low-Quality Opportunity
+- Suspicious
+- Likely Scam
+Evaluate the entire job posting using all available evidence.
 
 Rule Score: {rule_data['rule_score']}
 
