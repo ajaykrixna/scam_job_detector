@@ -129,6 +129,8 @@ Return ONLY valid JSON in this format:
         import traceback
 
         print("\n===== GEMINI ERROR =====")
+        print("Exception:", e)
+        print("Repr:", repr(e))
         traceback.print_exc()
         print("========================\n")
 
