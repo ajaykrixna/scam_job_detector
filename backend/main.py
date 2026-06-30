@@ -32,6 +32,10 @@ def home():
 def analyze(data: JobRequest):
     if data.url:
         content = fetch_job_content(data.url)
+        if not content:
+            return {
+                "error": "This website blocks automated scraping. Please paste the job description manually."
+            }
         age = get_domain_age(data.url)
     else:
         content = data.text

@@ -25,13 +25,33 @@ def get_domain_age(url):
         return None
 
 def fetch_job_content(url):
-    response = requests.get(url, timeout=10)
-    response.raise_for_status()
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/137.0.0.0 Safari/537.36"
+        )
+    }
 
-    soup = BeautifulSoup(response.text, "html.parser")
+    try:
+        response = requests.get(
+            url,
+            headers=headers,
+            timeout=15,
+            allow_redirects=True
+        )
 
-    text = soup.get_text(separator=" ", strip=True)
+        if response.status_code != 200:
+            print(f"Failed to fetch page: {response.status_code}")
+            return None
 
-    text = re.sub(r"\s+", " ", text)
+        soup = BeautifulSoup(response.text, "html.parser")
 
-    return text[:3000]
+        text = soup.get_text(separator=" ", strip=True)
+        text = re.sub(r"\s+", " ", text)
+
+        return text[:3000]
+
+    except Exception as e:
+        print("Scraping error:", e)
+        return None
