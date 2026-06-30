@@ -37,6 +37,7 @@ Important rules:
 - Pressure tactics to send money
 
 2. Direct sales, field marketing, MLM-style companies, management trainee programs, or aggressive recruitment are NOT automatically scams.
+   A direct sales, MLM, or field marketing company may be a poor career choice, but it is not necessarily a scam. Distinguish between a misleading opportunity and fraudulent activity. 
 
 3. Do NOT treat the following alone as evidence of a scam:
 - Young domain age
@@ -50,6 +51,8 @@ Important rules:
 - Unpaid internship
 - Google Forms application
 - Zoom interviews
+
+Do not treat an unpaid internship, low stipend, or performance-based stipend as a scam indicator by itself.
 
 4. If the application uses Google Forms or another third-party form, mention it as a caution rather than automatically considering it fraudulent.
 
@@ -91,6 +94,10 @@ Salary Risk:
 
 Job Content:
 {content[:2000]}
+
+Keep recommendations balanced and professional.
+Only recommend avoiding the opportunity when there is strong evidence of fraud.
+Otherwise recommend verifying the company, reviewing employee feedback, and asking clarifying questions during the interview.
 
 Return ONLY valid JSON in this format:
 
