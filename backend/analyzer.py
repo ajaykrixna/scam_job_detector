@@ -123,25 +123,11 @@ Return ONLY valid JSON.
 
         text = response.text.strip()
 
-        if text.startswith("```json"):
-            text = text.replace("```json", "")
-
-        if text.endswith("```"):
-            text = text.replace("```", "")
-
-        text = text.strip()
-
-        start = text.find("{")
-        end = text.rfind("}")
-
-        if start != -1 and end != -1:
-            text = text[start:end + 1]
-
-        print("\n===== GEMINI RESPONSE =====")
+        print("\n========== GEMINI RAW RESPONSE ==========\n")
         print(text)
-        print("===========================\n")
+        print("\n=========================================\n")
 
-        result = json.loads(text)
+        raise Exception("STOP")
 
         result["score_breakdown"] = score_breakdown
 
