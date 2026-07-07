@@ -10,17 +10,20 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 model = genai.GenerativeModel("gemini-2.5-flash")
 
+
 def analyze_job(content, domain_age, rule_data, features):
 
     score_breakdown = generate_score_breakdown(features)
 
     prompt = f"""
 You are an expert AI job scam detection system.
+
 Your goal is to determine whether a job posting is:
 - Legitimate
 - Legitimate but Low-Quality Opportunity
 - Suspicious
 - Likely Scam
+
 Evaluate the entire job posting using all available evidence.
 
 Important rules:
@@ -37,7 +40,7 @@ Important rules:
 - Pressure tactics to send money
 
 2. Direct sales, field marketing, MLM-style companies, management trainee programs, or aggressive recruitment are NOT automatically scams.
-   A direct sales, MLM, or field marketing company may be a poor career choice, but it is not necessarily a scam. Distinguish between a misleading opportunity and fraudulent activity. 
+A direct sales, MLM, or field marketing company may be a poor career choice, but it is not necessarily a scam.
 
 3. Do NOT treat the following alone as evidence of a scam:
 - Young domain age
@@ -64,15 +67,16 @@ Do not treat an unpaid internship, low stipend, or performance-based stipend as 
 
 6. Base your final scam score on the strongest evidence, not the number of minor observations.
 
-Rule Score: {rule_data['rule_score']}
+Rule Score:
+{rule_data["rule_score"]}
 
 Matched Red Flags:
-{rule_data['matched_flags']}
+{rule_data["matched_flags"]}
 
 Domain Age:
 {domain_age if domain_age is not None else "Not Available"}
 
-Extracted Features:
+Extracted Features
 
 Emails:
 {features["emails"]}
@@ -96,28 +100,46 @@ Job Content:
 {content[:2000]}
 
 Keep recommendations balanced and professional.
+
 Only recommend avoiding the opportunity when there is strong evidence of fraud.
+
 Otherwise recommend verifying the company, reviewing employee feedback, and asking clarifying questions during the interview.
 
-Return ONLY valid JSON in this format:
+Return ONLY valid JSON.
 
 {{
-  "scam_score": 0,
-  "verdict": "",
-  "red_flags": [],
-  "green_flags": [],
-  "recommendation": "",
-  "reasoning": ""
+    "scam_score": 0,
+    "verdict": "",
+    "red_flags": [],
+    "green_flags": [],
+    "recommendation": "",
+    "reasoning": ""
 }}
 """
 
     try:
+
         response = model.generate_content(prompt)
 
         text = response.text.strip()
 
         if text.startswith("```json"):
-            text = text.replace("```json", "").replace("```", "").strip()
+            text = text.replace("```json", "")
+
+        if text.endswith("```"):
+            text = text.replace("```", "")
+
+        text = text.strip()
+
+        start = text.find("{")
+        end = text.rfind("}")
+
+        if start != -1 and end != -1:
+            text = text[start:end + 1]
+
+        print("\n===== GEMINI RESPONSE =====")
+        print(text)
+        print("===========================\n")
 
         result = json.loads(text)
 
@@ -139,7 +161,7 @@ Return ONLY valid JSON in this format:
             "verdict": "Rule-Based Analysis Only",
             "red_flags": rule_data["matched_flags"],
             "green_flags": [],
-            "recommendation": "AI service temporarily unavailable. Please try again later.",
-            "reasoning": "The AI analysis service is currently unavailable due to API limits. Please try again later.",
+            "recommendation": "AI analysis could not be completed. Showing rule-based analysis instead.",
+            "reasoning": "The AI returned an invalid response, so only the rule-based analysis is shown.",
             "score_breakdown": score_breakdown
         }
