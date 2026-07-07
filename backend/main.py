@@ -24,19 +24,26 @@ class JobRequest(BaseModel):
     url: str = ""
     text: str = ""
 
+
 @app.get("/")
 def home():
     return {"message": "Server Running"}
 
+
 @app.post("/analyze")
 def analyze(data: JobRequest):
+
     if data.url:
-        content = fetch_job_content(data.url)
-        if not content:
+        scrape_result = fetch_job_content(data.url)
+
+        if not scrape_result["success"]:
             return {
-                "error": "This website blocks automated scraping. Please paste the job description manually."
+                "error": scrape_result["error"]
             }
+
+        content = scrape_result["content"]
         age = get_domain_age(data.url)
+
     else:
         content = data.text
         age = None
@@ -46,15 +53,15 @@ def analyze(data: JobRequest):
     features = extract_features(content)
 
     source_info = extract_source_info(
-    data.url,
-    features
+        data.url,
+        features
     )
 
     result = analyze_job(
-    content,
-    age,
-    rule_data,
-    features
+        content,
+        age,
+        rule_data,
+        features
     )
 
     score = result["scam_score"]
@@ -67,8 +74,6 @@ def analyze(data: JobRequest):
         result["verdict"] = "Likely Legitimate"
 
     result["domain_age"] = age
-
     result["source_verification"] = source_info
-
 
     return result
