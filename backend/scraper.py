@@ -45,7 +45,10 @@ def fetch_job_content(url):
         if response.status_code == 403:
             return {
                 "success": False,
-                "error": "Website blocked automated access (403). Please paste the job description manually."
+                "error": (
+                    "Unable to access this job URL because the website blocks "
+                    "automated requests. Please paste the complete job description manually."
+                )
             }
 
         elif response.status_code == 404:
@@ -57,13 +60,18 @@ def fetch_job_content(url):
         elif response.status_code == 429:
             return {
                 "success": False,
-                "error": "Too many requests. Please try again later."
+                "error": (
+                    "Too many requests. Please wait a few minutes and try again."
+                )
             }
 
         elif response.status_code != 200:
             return {
                 "success": False,
-                "error": f"Failed to fetch page ({response.status_code})."
+                "error": (
+                    f"Unable to access the job page (HTTP {response.status_code}). "
+                    "Please paste the job description manually."
+                )
             }
 
         soup = BeautifulSoup(response.text, "html.parser")
@@ -74,7 +82,11 @@ def fetch_job_content(url):
         if len(text) < 100:
             return {
                 "success": False,
-                "error": "No readable job description found."
+                "error": (
+                    "Unable to extract a readable job description from this URL. "
+                    "The website may require JavaScript or block automated access. "
+                    "Please paste the complete job description manually."
+                )
             }
 
         return {
@@ -85,24 +97,33 @@ def fetch_job_content(url):
     except requests.exceptions.Timeout:
         return {
             "success": False,
-            "error": "The website took too long to respond."
+            "error": (
+                "The website took too long to respond. "
+                "Please paste the job description manually."
+            )
         }
 
     except requests.exceptions.ConnectionError:
         return {
             "success": False,
-            "error": "Unable to connect to the website."
+            "error": (
+                "Unable to connect to the website. "
+                "Please check the URL or paste the job description manually."
+            )
         }
 
     except requests.exceptions.InvalidURL:
         return {
             "success": False,
-            "error": "Invalid URL."
+            "error": "Invalid job URL."
         }
 
     except Exception as e:
         print("Scraping Error:", e)
         return {
             "success": False,
-            "error": "Something went wrong while fetching the webpage."
+            "error": (
+                "Unable to process this job URL. "
+                "Please paste the complete job description manually."
+            )
         }
