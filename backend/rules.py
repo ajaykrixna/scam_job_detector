@@ -5,19 +5,23 @@ def rule_based_analysis(content, domain_age):
     red_flags = []
 
     rules = {
-        "registration fee": 40,
-        "processing fee": 40,
-        "joining fee": 40,
-        "no experience required": 10,
-        "instant joining": 15,
-        "limited vacancies": 10,
-        "work from home": 5,
-        "security deposit": 40,
-        "training fee": 40,
-        "application fee": 40,
-        "document verification fee": 40,
-        "refundable fee": 40,
-    }
+    "registration fee": 40,
+    "processing fee": 40,
+    "joining fee": 40,
+    "security deposit": 40,
+    "training fee": 40,
+    "application fee": 40,
+    "document verification fee": 40,
+    "refundable fee": 40,
+    "work from home": 5,
+    "no experience required": 10,
+    "instant joining": 15,
+    "limited vacancies": 10,
+    "whatsapp": 15,
+    "telegram": 15,
+    "urgent hiring": 10,
+    "immediate joining": 10
+}
 
     for keyword, points in rules.items():
         if keyword in content:
